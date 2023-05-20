@@ -158,14 +158,14 @@ services:
         max-size: "1m"
         max-file: "2"
 
-  mongo:
+  mongo_db:
     image: mongo:4.4.21
     restart: always
 #    environment:
 #      MONGO_INITDB_ROOT_USERNAME: root
 #      MONGO_INITDB_ROOT_PASSWORD: example
     ports:
-      - 27017:27017
+      - "27017:27017"
     command: --bind_ip_all
     volumes:
       - mongo_db:/data/db
@@ -178,24 +178,24 @@ services:
         max-size: "5m"
         max-file: "3"
 
-  mongo-express:
+  mongo_express:
     image: mongo-express:0.54.0
     restart: always
     ports:
-      - 8081:8081
+      - "8081:8081"
     environment:
 #      ME_CONFIG_MONGODB_ADMINUSERNAME: root
 #      ME_CONFIG_MONGODB_ADMINPASSWORD: example
       ME_CONFIG_MONGODB_URL: mongodb://mongo:27017/
     depends_on:
-      - mongo
+      - mongo_db
 
   jupyter:
       build:
         context: jupyter
         dockerfile: ./Dockerfile
         args:
-          GIT_TOKEN: add_personal_access_token_here
+          GIT_TOKEN: ${GIT_TOKEN}
       container_name: jupyter${NAME_SUFFIX}
       restart: always
       ports:
