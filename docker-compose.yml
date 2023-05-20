@@ -136,7 +136,7 @@ services:
 #      - "127.0.0.1:4002:4002"
 #      - "127.0.0.1:5901:5900"
 # vnc port 5901
-  ib-gateway:
+  ib_gateway:
     image: ghcr.io/unusualalpha/ib-gateway:latest
     restart: always
     container_name: ib_gateway${NAME_SUFFIX}
